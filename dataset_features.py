@@ -14,9 +14,12 @@ def mfcc(data):
 def pitch(data):
 
     # Pitch tracking on thresholded parabolically-interpolated STFT
-    pitch_audio, magnitude = librosa.piptrack(y=data, sr=22050, n_fft=512)
+    f0= librosa.yin(y=data, fmin=50, fmax=500, sr=22050)
+    f0[np.isnan(f0)] = 0
+    #pitch_audio, magnitude = librosa.piptrack(y=data, sr=22050, n_fft=512)
 
-    return pitch_audio
+    #return pitch_audio
+    return f0
 
 current_path = os.path.dirname(os.path.realpath(__file__))
 
