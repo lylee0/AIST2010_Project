@@ -44,7 +44,19 @@ for data in preprocessed_data:
     pitch_audio = pitch(np.array(data))
     pitch_audio_data.append(pitch_audio)
 
-fig, axes = plt.subplots(2, 1)
+'''fig, axes = plt.subplots(2, 1)
 librosa.display.specshow(mfcc_audio_data[0], x_axis='time', ax=axes[0])
 librosa.display.specshow(mfcc_audio_data[1], x_axis='time', ax=axes[1])
-plt.show()
+plt.show()'''
+'''fig, ax = plt.subplots(nrows=2, sharex=True)
+img = librosa.display.specshow(librosa.power_to_db(librosa.feature.melspectrogram(y=preprocessed_data[0], sr=22050, n_mels=128,
+                                   fmax=8000), ref=np.max),
+                               x_axis='time', y_axis='mel', fmax=8000,
+                               ax=ax[0])
+fig.colorbar(img, ax=[ax[0]])
+ax[0].set(title='Mel spectrogram')
+ax[0].label_outer()
+img = librosa.display.specshow(mfcc_audio_data[0], x_axis='time', ax=ax[1])
+fig.colorbar(img, ax=[ax[1]])
+ax[1].set(title='MFCC')
+plt.show()'''
