@@ -47,6 +47,17 @@ for data in preprocessed_data:
     pitch_audio = pitch(np.array(data))
     pitch_audio_data.append(pitch_audio)
 
+mfcc_pitch_data = []
+for i in range(0, 100):
+    #mfcc_pitch = np.row_stack([mfcc_audio_data[i], pitch_audio_data[i]])
+    #pitch_reshaped = pitch_audio_data[i].reshape(-1, 1)
+    #pitch_repeated = np.repeat(pitch_reshaped, 20, axis=1)
+    mfcc_pitch = np.concatenate((mfcc_audio_data[i].flatten(), pitch_audio_data[i]))
+    #mfcc_pitch = np.row_stack((mfcc_audio_data[i].T, pitch_audio_data[i]))
+    mfcc_pitch_data.append(mfcc_pitch)
+
+# use array in mfcc_pitch_data as input
+
 '''fig, axes = plt.subplots(2, 1)
 librosa.display.specshow(mfcc_audio_data[0], x_axis='time', ax=axes[0])
 librosa.display.specshow(mfcc_audio_data[1], x_axis='time', ax=axes[1])
