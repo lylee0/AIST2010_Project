@@ -47,14 +47,18 @@ for data in preprocessed_data:
     pitch_audio = pitch(np.array(data))
     pitch_audio_data.append(pitch_audio)
 
-mfcc_pitch_data = []
+'''mfcc_pitch_data = []
 for i in range(0, 100):
     #mfcc_pitch = np.row_stack([mfcc_audio_data[i], pitch_audio_data[i]])
     #pitch_reshaped = pitch_audio_data[i].reshape(-1, 1)
     #pitch_repeated = np.repeat(pitch_reshaped, 20, axis=1)
     mfcc_pitch = np.concatenate((mfcc_audio_data[i].flatten(), pitch_audio_data[i]))
     #mfcc_pitch = np.row_stack((mfcc_audio_data[i].T, pitch_audio_data[i]))
-    mfcc_pitch_data.append(mfcc_pitch)
+    mfcc_pitch_data.append(mfcc_pitch)'''
+
+mfcc_flatten = []
+for mfcc in mfcc_audio_data:
+    mfcc_flatten.append(mfcc.flatten())
 
 # use array in mfcc_pitch_data as input
 
