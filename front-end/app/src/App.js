@@ -1,4 +1,7 @@
-import React, { useState, useRef } from 'react';
+
+import React, { useState, useRef, useEffect } from 'react';
+import { CircleLoader } from 'react-spinners';
+//import WaveSurfer from 'wavesurfer.js';
 
 function App() {
   const [recording, setRecording] = useState(false);
@@ -6,6 +9,8 @@ function App() {
   const audioRef = useRef(null);
   const [audioChunks, setAudioChunks] = useState([]); 
   const chunks = [];
+
+  const [loading, setLoading] = useState(false);
 
   const startRecording = () => {
     navigator.mediaDevices.getUserMedia({ audio: true })
@@ -23,34 +28,28 @@ function App() {
           setAudioChunks(audioChunks);
           setRecording(false);
           sendAudioData(chunks);
-         });
-
-
-        setTimeout(() => {
-          mediaRecorder.stop();
-        }, 5000);
-
+        });
 
         setRecording(true);
-      });
+      })
+      .catch(error => {
+        console.error('Error accessing microphone:', error);
+        //eventually change error message to something in-page
+        alert('Error accessing microphone');
+      })
+    ;
   };
 
   const stopRecording = () => {
     if (mediaRecorder && mediaRecorder.state !== "inactive") {
+
       mediaRecorder.stop();
       
     }
   };
 
-  //Test purposes only
-  const playRecording = () => {
-    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-    const audioUrl = URL.createObjectURL(audioBlob);
-    audioRef.current.src = audioUrl; 
-    audioRef.current.play();
-  }
-
   const sendAudioData = (chunks) => {
+    setLoading(true);
     const audioBlob = new Blob(chunks, { type: 'audio/wav' });
 
     const formData = new FormData();
@@ -61,10 +60,18 @@ function App() {
       body: formData
       })
       .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        setLoading(false);
         // Handle response from backend if needed
         console.log('Audio data sent successfully');
       })
+      .then(data => {
+
+      })
       .catch(error => {
+        setLoading(false);
         // Handle error if the request fails
         console.error('Error sending audio data:', error);
       });
@@ -76,10 +83,9 @@ function App() {
         <h1>Singer Recognition</h1>
         {!recording && <button onClick={startRecording}>Start Recording</button>}
         {recording && <button onClick={stopRecording}>Stop Recording</button>}
-        <>
-          <button onClick={playRecording}>Play Recording</button>
-          <audio ref={audioRef} controls />
-        </>
+        
+        {loading && <CircleLoader />}
+        
       </header>
     </div>
   );
