@@ -19,6 +19,8 @@ Run result_testing.py can return the predicted singer
 dataset.csv
 dataset_features.py
 dataset_preprocess.py
+audio_segment.py
+CNN.ipynb
 are useless
 
 Web
