@@ -13,3 +13,12 @@ or download it https://mycuhk-my.sharepoint.com/:x:/g/personal/1155158772_link_c
 
 Run model.py to train the model and get the model.pt
 
+Run result_testing.py can return the predicted singer
+(audio files in recordings are used for testing) ???
+
+dataset.csv
+dataset_features.py
+dataset_preprocess.py
+are useless
+
+Web
