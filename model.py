@@ -122,7 +122,7 @@ y_test_inversed_encoded = label_encoder.inverse_transform(y_test)
 predicted_test_labels_inversed_encoded = label_encoder.inverse_transform(predicted_test_labels)
 
 model_path = os.path.join(current_path, "model.pt")
-torch.save(model.state_dict(), model_path)
+torch.save(model, model_path) #.state_dict()
 print(f"Model saved as {model_path}\n")
 
 print("Model saved.")
