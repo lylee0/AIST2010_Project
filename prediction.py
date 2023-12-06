@@ -5,9 +5,8 @@ import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from input_process import mfccTensor
 
-# Plz get the input audio firsst
-
-class CNNModel(nn.Module):
+# Need this class if use torch.save(model.state_dict(), PATH)
+'''class CNNModel(nn.Module):
     def __init__(self, input_size, num_classes):
         super(CNNModel, self).__init__()
         self.conv1 = nn.Conv1d(1, 32, kernel_size=3, stride=1, padding=1)
@@ -33,16 +32,14 @@ class CNNModel(nn.Module):
         x = F.relu(self.fc1(x))
         x = self.dropout(x)  # Apply dropout
         x = self.fc2(x)
-        return x
+        return x'''
 
 
 def getPrediction(input_audio, model_path):
     mfcc_tensor = mfccTensor(input_audio)
-    model = CNNModel(880, 10)
-    model.load_state_dict(torch.load(model_path))
-    
-    #model = torch.load(model_path)
-    #model = model.load_state_dict()  #change it to the path of trained model
+    #model = CNNModel(880, 10)
+    #model.load_state_dict(torch.load(model_path))
+    model = torch.load(model_path)
     model.eval()
 
     Y_label = np.array(['Adele', 'Ariana Grande', 'Beyonce', 'Billie Eilish', 'Dua Lipa', 'Ed Sheeran', 'Justin Bieber', 'Lady Gaga', 'Taylor Swift', 'The Weeknd'])
