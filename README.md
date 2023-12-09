@@ -10,6 +10,7 @@ https://mycuhk-my.sharepoint.com/:f:/g/personal/1155158772_link_cuhk_edu_hk/Egbl
 Directory Set-up<br />
 ----main_directory<br />
     get_mfcc.py<br />
+    y_labels_2500.csv
     model.py<br />
     ----dataset<br />
         1.wav<br />
