@@ -1,24 +1,23 @@
 # AIST2010_Project
 Predicting Singers from Songs through Machine Learning
 
-Packages required
+Packages required<br />
 Please refer to requirements.txt
 
-Firstly Download the dataset in the link below: 
+Firstly Download the dataset in the link below:<br /> 
 https://mycuhk-my.sharepoint.com/:f:/g/personal/1155158772_link_cuhk_edu_hk/Egbl1_rh3NtGlnzfTuX5f2kBDVBFU-3HVHaV5hnBEZnyQw?e=u7x6Tl
 
-Directory Set-up
-----main_directory
-    get_mfcc.py
-    prediction.py
-    model.py
-    ----dataset
-        1.wav
-        2.wav
-        ...
-        99.wav
+Directory Set-up<br />
+----main_directory<br />
+    get_mfcc.py<br />
+    model.py<br />
+    ----dataset<br />
+        1.wav<br />
+        2.wav<br />
+        ...<br />
+        99.wav<br />
 
-Run get_mfcc.py to get the MFCCs data 
+Run get_mfcc.py to get the MFCCs data<br />
 or download it https://mycuhk-my.sharepoint.com/:x:/g/personal/1155158772_link_cuhk_edu_hk/EXTtCtUrgFFPqLltYS3saE8BBROPPZyGFp-NRz1ZWuRBSQ?e=FYoahq
 
 Run model.py to train the model and get the model.pt
