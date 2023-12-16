@@ -50,6 +50,9 @@ function startRecording() {
     
     recordButton.disabled = true;
 
+    document.getElementById("finalResponse").style.display = "none";
+    document.getElementById("finalResponseText").innerHTML = "";
+
     recordButton.innerHTML = "Listening";
 
     document.getElementById('timerDisplay').innerText = "0:10";
@@ -92,24 +95,27 @@ function startRecording() {
 
 		console.log("Recording started");
 
-        setTimeout(function() {
-            //recording finished after the 10 sec timeout
-            //tell the recorder to stop the recording
-            rec.stop();
+      setTimeout(function() {
+        //recording finished after the 10 sec timeout
+        //tell the recorder to stop the recording
+        rec.stop();
 
-            recordButton.disabled = false;
-            recordButton.innerHTML = "Start Recording";
+        recordButton.disabled = false;
+        recordButton.innerHTML = "Start Recording";
 
-            //stop microphone access
-            gumStream.getAudioTracks()[0].stop();
+        //stop microphone access
+        gumStream.getAudioTracks()[0].stop();
 
-            //create the wav blob and pass it on to createDownloadLink
-            rec.exportWAV(createDownloadLink);
+        //create the wav blob and pass it on to createDownloadLink
+        rec.exportWAV(createDownloadLink);
 
-            menu.style.display = "none";
-        
-        //10500 to allow for extra wiggle space
-        },10500);
+        menu.style.display = "none";
+
+        recordingsMenu.style.display = "block";
+        showRecordings.innerHTML = "Hide Recordings";
+        showRecordings.style.backgroundColor = "#d1712d";
+      //10500 to allow for extra wiggle space
+      },10500);
     
 	}).catch(function(err) {
 	  	//enable the record button if getUserMedia() fails
@@ -140,7 +146,7 @@ function createDownloadLink(blob) {
 	li.appendChild(au);
 	
 	//add the filename to the li
-	li.appendChild(document.createTextNode(filename+".wav "))
+	li.appendChild(document.createTextNode(filename+".wav ( "))
 
 	//add the save to disk link to li
 	li.appendChild(link);
@@ -148,7 +154,7 @@ function createDownloadLink(blob) {
 	//upload link
 	var upload = document.createElement('a');
 	upload.href="#";
-	upload.innerHTML = "Upload";
+	upload.innerHTML = "Upload to model";
 	upload.addEventListener("click", function(event){
         
         const formData = new FormData();
@@ -159,14 +165,27 @@ function createDownloadLink(blob) {
           })
             .then(response => response.json())
             .then(data => {
+              recordingsMenu.style.display = "none";
+              showRecordings.innerHTML = "Show Recordings";
+              showRecordings.style.backgroundColor = "#faa76b";
+
               console.log(data);
+              document.getElementById("finalResponse").style.display = "block";
+              document.getElementById("finalResponseText").innerHTML = "Your singer is.. " + data + "!";
             })
             .catch(error => {
+              recordingsMenu.style.display = "none";
+              showRecordings.innerHTML = "Show Recordings";
+              showRecordings.style.backgroundColor = "#faa76b";
+              
               console.error(error);
+              document.getElementById("finalResponse").style.display = "block";
+              document.getElementById("finalResponseText").innerHTML = "Failed.. Please try again!";
             });
 	})
-	li.appendChild(document.createTextNode (" "))//add a space in between
+	li.appendChild(document.createTextNode (" | "))//add a space in between
 	li.appendChild(upload)//add the upload link to li
+  li.appendChild(document.createTextNode (" )"))
 
 	//add the li element to the ol
 	recordingsList.appendChild(li);
