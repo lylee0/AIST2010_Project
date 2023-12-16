@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    
+        <title>Singer Recognition</title>
+        <style>
+            .btn { 
+                border: 2px solid #faa76b !important;
+                border-radius: 30px !important;
+                background-color: #faa76b !important;
+                color: #fff !important;
+            }
+            .btn:hover {
+                background-color: #E8933D !important;
+            }
+            .btn:disabled {
+                background-color: #D8D8D8 !important;
+                cursor: not-allowed !important;
+            }
+            .page {
+                background-color: #2b2828 !important;
+            }
+            .title {
+                font-size: 55px !important;
+            }
+            li {
+                list-style: none !important;
+                margin-bottom: 1rem !important;
+            }
+            recordingsList {
+                max-width: 28em !important;
+            }
+            audio {
+                display: block !important;
+                width: 100% !important;
+                margin-top: 0.2rem !important;
+            }
+            ol {
+                padding-left: 0 !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="page" class="page d-flex flex-column justify-content-center align-items-center vh-100 ">
+            <h1 class="title mb-5 text-white fs-2 font-weight-bold">Singer Recognition</h1>
+            <button type="button" id="recordButton" class="btn btn-lg px-5 py-3 mb-2">Start Recording</button>
+            <div id="menu" style="display:none" class="text-white text-center mt-2 mb-4">
+                <div id="formats">Format: </div>
+                <p id="timerDisplay" class="fs-3" style="font-size: 35px; font-weight: 450;"></p>
+                <div id="waveform">
+
+                    <canvas class="visualizer" width="640" height="200"></canvas>
+
+                </div>
+            </div>
+            <button type="button" id="showRecordings" class="btn2 btn-lg px-5 py-3" 
+                style="
+                border:2px solid #faa76b;
+                background-color:#faa76b;
+                border-radius:30px;
+                color:#fff;
+                "
+            >
+                Show Recordings
+            </button>
+            <div id="recordingsMenu" style="display:none" class="text-white text-center">
+                <h3 class="mt-3">Recordings:</h3>
+                <ol id="recordingsList"></ol>
+            </div>
+        </div>
+        
+        
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script type="module" src="newapp.js"></script>
+        <script src="newrecorder.js"></script>
+        <script type="module" src="waveform.js"></script>
+    </body>
+</html>
