@@ -1,10 +1,10 @@
 # AIST2010_Project
 Predicting Singers from Songs through Machine Learning
 
-#Packages required<br />
+Packages required<br />
 Please refer to requirements.txt
 
-#Preparation of Dataset
+Preparation of Dataset
 Firstly Download the dataset (the whole directory) in the link below:<br /> 
 https://mycuhk-my.sharepoint.com/:f:/g/personal/1155158772_link_cuhk_edu_hk/Egbl1_rh3NtGlnzfTuX5f2kBDVBFU-3HVHaV5hnBEZnyQw?e=u7x6Tl
 
