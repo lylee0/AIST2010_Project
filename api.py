@@ -1,6 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api, reqparse, abort
 from flask_cors import CORS
+import base64
+import librosa
+import soundfile as sf
+import time 
+import random
 
 from prediction import getPrediction
 
@@ -10,20 +15,20 @@ CORS(app)
 api = Api(app)
 
 @app.route('/upload-audio', methods=['POST'])
-def upload_audio():
-    # Access the data from the request body
-    model_path = "model.pt"
-    bdata = request.data
-    with open("recordings/recordings.wav", "wb") as fh:
-        fh.write(bdata)
-    input_audio = "recordings/Chasing_Pavements_Adele.wav"
-
-    artist = getPrediction(input_audio, model_path)
-    print(artist)
+def handle_audio_data():
+    if request.method == 'POST':
+        save_path = "recordings/temp.wav"
+        print(request.files)
+        audio_file = request.files['music_file']
+        audio_file.save(save_path)
 
 
-    # Send a response (you can customize this as needed)
-    return jsonify({'message': 'The predicted artist is: ' + artist})
+        model_path = "model.pt"
+        input_audio = "recordings/temp.wav"
+
+        singerName = getPrediction(input_audio, model_path)
+        print(singerName)
+        return singerName
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(host="localhost", port=5005, debug=True)

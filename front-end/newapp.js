@@ -156,57 +156,34 @@ function createDownloadLink(blob) {
 	upload.href="#";
 	upload.innerHTML = "Upload to model";
 	upload.addEventListener("click", function(event){
-        
+        recordingsMenu.style.display = "none";
+        showRecordings.innerHTML = "Show Recordings";
+        showRecordings.style.backgroundColor = "#faa76b";
+
+        document.getElementById("finalResponse").style.display = "block";
+        document.getElementById("finalResponseText").innerHTML = "Processing.."
+
         const formData = new FormData();
         formData.append('music_file', blob, filename);
         fetch('http://localhost:5005/upload-audio', {
             method: 'POST',
             body: formData
-          })
-            .then(response => response.json())
+        })
+            .then(response => response.text())
             .then(data => {
-              recordingsMenu.style.display = "none";
-              showRecordings.innerHTML = "Show Recordings";
-              showRecordings.style.backgroundColor = "#faa76b";
-
-              console.log(data);
-              document.getElementById("finalResponse").style.display = "block";
-              document.getElementById("finalResponseText").innerHTML = "Your singer is.. " + data + "!";
+            console.log(data);
+            document.getElementById("finalResponse").style.fontSize = "25px";
+            document.getElementById("finalResponseText").innerHTML = "Your singer is.. <strong>" + data + "<\strong>!";
             })
             .catch(error => {
-              recordingsMenu.style.display = "none";
-              showRecordings.innerHTML = "Show Recordings";
-              showRecordings.style.backgroundColor = "#faa76b";
-              
-              console.error(error);
-              document.getElementById("finalResponse").style.display = "block";
-              document.getElementById("finalResponseText").innerHTML = "Failed.. Please try again!";
+            console.error(error);
+            document.getElementById("finalResponseText").innerHTML = "Failed.. Please try again!";
             });
-	})
+    })
 	li.appendChild(document.createTextNode (" | "))//add a space in between
 	li.appendChild(upload)//add the upload link to li
   li.appendChild(document.createTextNode (" )"))
 
 	//add the li element to the ol
 	recordingsList.appendChild(li);
-}
-
-function submitForm() {
-	const formData = new FormData();
-	var form = document.getElementById("form");
-    //const fileInput = document.getElementById('music_file');
-    const file = form.files[0];
-    formData.append('music_file', file, file.name);
-  
-    fetch('http://localhost:5005/upload-audio', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
 }
